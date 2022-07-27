@@ -1,0 +1,17 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    # SPEL??
+    name: @project.artifactId@
+  profiles:
+    active:
+      - server
+      - register
+      - monitor
+      - redis
+      - feign
+  main:
+    allow-bean-definition-overriding: true
+
