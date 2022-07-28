@@ -10,17 +10,10 @@
         <relativePath/>
     </parent>
     <artifactId>iot-gateway</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>iot-gateway</name>
+    <name>${project.artifactId}</name>
     <description>iot-gateway</description>
-    <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
     <dependencies>
         <dependency>
-
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
             <exclusions>
@@ -48,27 +41,21 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-        <!--生成configuration元数据-->
+        <!--spring boot redis reactive 依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
         </dependency>
-        <!--spring test框架-->
+        <!--resilience4j 依赖-->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
+        </dependency>
+        <!--test-->
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-common-api</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

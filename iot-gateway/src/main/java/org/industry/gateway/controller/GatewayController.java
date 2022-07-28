@@ -1,4 +1,4 @@
-package org.industry.gateway.controller;
+package org.industry.common.base.gateway.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -10,8 +10,17 @@
         <module>iot-common</module>
         <module>iot-gateway</module>
     </modules>
-    <name>ManageProject</name>
+    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <java.version>1.8</java.version>
         <!--编码-->
@@ -24,6 +33,14 @@
         <spring-cloud-version>2021.0.3</spring-cloud-version>
         <!--spring platform 版本-->
         <spring-platform-version>Cairo-SR8</spring-platform-version>
+        <!--<lombok-version></lombok-version>-->
+        <maven.source.plugin>3.2.1</maven.source.plugin>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.plugin>3.8.0</maven.compiler.plugin>
+        <maven.resource.plugin>3.1.0</maven.resource.plugin>
+        <spring-boot-maven-version>2.2.2.RELEASE</spring-boot-maven-version>
+
     </properties>
     <!--插件仓库-->
     <pluginRepositories>
@@ -64,8 +81,38 @@
             </snapshots>
         </repository>
     </repositories>
+    <dependencies>
+        <!--生成configuration元数据-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!--spring test框架-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <!--去除旧版本-->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
+            <!--spring cloud-->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-parent</artifactId>
@@ -89,48 +136,96 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--项目模块-->
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-common-base</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-common-api</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-version}</version>
                 <configuration>
                     <!--jdk版本1.8， release 需要jdk 9 之后才支持-->
                     <!--<release>11</release>-->
                     <!--<excludes>-->
                     <!--    <exclude>org/industry/spring/*</exclude>-->
                     <!--</excludes>-->
+                    <!--编译配置-->
+                    <parameters>true</parameters>
                 </configuration>
             </plugin>
-            <!--mvn 生命周期测试插件-->
-            <!--todo 暂时屏蔽-->
-            <!--<plugin>
+            <!--资源配置-->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>${maven-surefire-version}</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <propertyName>firefox</propertyName>
-                    </systemPropertyVariables>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit-platform</artifactId>
-                        <version>${maven-surefire-version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-testng</artifactId>
-                        <version>${maven-surefire-version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>-->
+                <artifactId>maven-resources-plugin</artifactId>
+            </plugin>
+            <!--源码配置-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot-maven-version}</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin}</version>
+                    <configuration>
+                        <source>${maven.compiler.source}</source>
+                        <target>${maven.compiler.target}</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven.resource.plugin}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven.source.plugin}</version>
+                    <executions>
+                        <execution>
+                            <id>sources</id>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>
