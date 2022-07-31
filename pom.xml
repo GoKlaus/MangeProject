@@ -215,6 +215,13 @@
 
     <build>
         <finalName>${project.name}</finalName>
+        <!--todo 这个配置与@projec.artifactId@这个用法之间的关系，为什么少了这个配置，那个写法就不生效呢-->
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

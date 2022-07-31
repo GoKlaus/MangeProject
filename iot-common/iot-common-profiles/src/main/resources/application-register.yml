@@ -11,11 +11,19 @@ eureka:
     health-check-url-path: /actuator/health
     lease-renewal-interval-in-seconds: 10
     lease-expiration-duration-in-seconds: 15
+  #    没有配置的情况下有问题
+  #    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
   client:
-    region: dc3
+    region: iot
     availability-zones:
       dc3: defaultZone
+      iot: defaultZone
     prefer-same-zone-eureka: true
     registry-fetch-interval-seconds: 5
     service-url:
-      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${EUREKA_HOST:dc3-center-register}:${EUREKA_PORT:8100}/eureka
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${EUREKA_HOST:iot-center-register}:${EUREKA_PORT:8100}/eureka
+#      todo fix bug 开启自我注册，控制台报错
+#      获取服务元信息
+#    fetch-registry: false
+#      自己注册自己
+#    register-with-eureka: false

@@ -4,13 +4,13 @@ server:
 spring:
   application:
     name: '@project.artifactId@'
-    profiles:
-      active:
-        - server
-        - register
-        - monitor
-        - redis
-        - feign
+  profiles:
+    active:
+      - server
+      - register
+      - monitor
+      - redis
+      - feign
   thymeleaf:
     enabled: true
     mode: HTML
