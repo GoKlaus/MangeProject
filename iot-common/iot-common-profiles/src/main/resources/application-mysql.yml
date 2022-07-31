@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/dc3?allowPublicKeyRetrieval=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:admin@123}
+    hikari:
+      pool-name: iot-hikari
+      max-lifetime: 1765000
+      maximum-pool-size: 64
+      minimum-idle: 4
+  sql:
+    init:
+      encoding: utf-8
+
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath*:/mapping
+  global-config:
+    banner: false
+    db-config:
+      table-prefix: dc3_
+      logic-delete-value: 1
+      logic-not-delete-value: 0

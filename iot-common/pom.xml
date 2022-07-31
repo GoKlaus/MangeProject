@@ -13,6 +13,8 @@
     <modules>
         <module>iot-common-api</module>
         <module>iot-common-base</module>
+        <module>iot-common-core</module>
+        <module>iot-common-profiles</module>
     </modules>
 </project>
 

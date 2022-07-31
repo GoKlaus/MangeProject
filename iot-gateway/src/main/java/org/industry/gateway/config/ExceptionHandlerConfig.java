@@ -1,4 +1,4 @@
-package org.industry.common.base.gateway.config;
+package org.industry.gateway.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -4,21 +4,38 @@ server:
 spring:
   application:
     name: '@project.artifactId@'
-  profiles:
-    active:
-      - server
-      - register
-      - monitor
-      - redis
-      - feign
+    profiles:
+      active:
+        - server
+        - register
+        - monitor
+        - redis
+        - feign
+  thymeleaf:
+    enabled: true
+    mode: HTML
+    cache: false
+    encoding: utf-8
+    suffix: .html
+    servlet:
+      content-type: text/html
   main:
-    #    bean 定义覆盖
+    # bean 定义覆盖
     allow-bean-definition-overriding: true
   cloud:
     gateway:
+      # 不启动网关
+      # enabled: false
       loadbalancer:
         use404: true
       discovery:
         locator:
           enabled: true
           lower-case-service-id: true
+  redis:
+    database: 0
+
+logging:
+  level:
+    # 日志等级
+    org.industry: debug

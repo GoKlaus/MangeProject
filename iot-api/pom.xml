@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ManageProject</artifactId>
+        <groupId>org.industry</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>iot-api</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>iot-api-auth</module>
+        <module>iot-api-data</module>
+        <module>iot-api-driver</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-common-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

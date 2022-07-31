@@ -1,7 +1,7 @@
-package org.industry.common.base.gateway.config;
+package org.industry.gateway.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.industry.common.base.gateway.fallback.GatewayFallback;
+import org.industry.gateway.fallback.GatewayFallback;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

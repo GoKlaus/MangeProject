@@ -1,0 +1,22 @@
+server:
+  port: ${EUREKA_PORT:8100}
+spring:
+  application:
+    name: '@project.artifactId@'
+  profiles:
+    active:
+      - server
+      - register
+      - server
+      - monitor
+      - ${NODE_ENV:dev}
+logging:
+  level:
+    org.industry: debug
+
+eureka:
+  dashboard:
+    path: ${EUREKA_DASHBOARD_PATH:/}
+  server:
+    eviction-interval-timer-in-ms: 5000
+    renewal-percent-threshold: 0.9

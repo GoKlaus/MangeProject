@@ -1,4 +1,4 @@
-package org.industry.common.base.gateway.config;
+package org.industry.gateway.config;
 
 import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.filter.ratelimit.RedisRateLimiter;

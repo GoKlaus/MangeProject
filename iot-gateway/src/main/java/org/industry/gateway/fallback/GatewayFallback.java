@@ -1,4 +1,4 @@
-package org.industry.common.base.gateway.fallback;
+package org.industry.gateway.fallback;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
