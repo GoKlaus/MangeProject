@@ -16,6 +16,9 @@
     <modules>
         <module>iot-center-auth</module>
         <module>iot-center-register</module>
+        <module>iot-center-manager</module>
+        <module>iot-center-data</module>
+        <module>iot-center-monitor</module>
     </modules>
 
 

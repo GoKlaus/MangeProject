@@ -14,6 +14,8 @@
         <module>iot-api-auth</module>
         <module>iot-api-data</module>
         <module>iot-api-driver</module>
+        <module>iot-api-manager</module>
+        <module>iot-api-rtmp</module>
     </modules>
 
     <dependencies>

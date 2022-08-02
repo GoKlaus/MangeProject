@@ -28,7 +28,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         } catch (Exception e) {
             log.error("{}", e.getMessage(), e);
         }
-
-
     }
+
 }
