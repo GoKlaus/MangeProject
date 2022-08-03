@@ -1,4 +1,4 @@
-package org.industry.center.auth;
+package org.industry.center.auth.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.industry.common.constant.ServiceConstant;

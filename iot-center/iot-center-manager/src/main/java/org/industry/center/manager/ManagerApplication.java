@@ -1,6 +1,6 @@
-package org.industry;
+package org.industry.center.manager;
 
-public class Main {
+public class ManagerApplication {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }

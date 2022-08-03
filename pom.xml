@@ -48,7 +48,12 @@
         <mybatis-plus.version>3.5.2</mybatis-plus.version>
         <!--hutool 版本-->
         <hutool.version>5.8.3</hutool.version>
+        <!--jakarta 版本-->
+        <jakarta.version>2.0.1</jakarta.version>
 
+        <jaxb.api.version>2.3.1</jaxb.api.version>
+        <jaxb.version>3.0.2</jaxb.version>
+        <jwt.version>0.9.1</jwt.version>
     </properties>
     <!--插件仓库-->
     <pluginRepositories>
@@ -151,10 +156,48 @@
                 <version>${mybatis-plus.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
             </dependency>
+            <!--Jaxb API-->
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-impl</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.xml.bind</groupId>
+                <artifactId>jaxb-core</artifactId>
+                <version>${jaxb.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.json</groupId>
+                <artifactId>jakarta.json-api</artifactId>
+                <version>${jakarta.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
             <!--项目模块-->
             <dependency>
                 <groupId>org.industry</groupId>
@@ -183,6 +226,30 @@
             <dependency>
                 <groupId>org.industry</groupId>
                 <artifactId>iot-common-profiles</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-api-manager</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-api-data</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-api-driver</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-api-rtmp</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>

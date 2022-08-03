@@ -11,5 +11,22 @@
 
     <artifactId>iot-center-manager</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-api-auth</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-common-profiles</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-api-manager</artifactId>
+        </dependency>
+    </dependencies>
 </project>
