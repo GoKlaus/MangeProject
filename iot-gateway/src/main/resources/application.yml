@@ -39,3 +39,9 @@ logging:
   level:
     # 日志等级
     org.industry: debug
+
+# 开启消费方组件实例化
+feign:
+  fallback:
+    switch: true
+

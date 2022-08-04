@@ -12,8 +12,22 @@ public interface ServiceConstant {
      */
     String FEIGN_FALLBACK_SWITCH = "feign.fallback.switch";
 
+    interface Header {
+        String X_AUTH_USER_ID = "X-Auth-User-Id";
+        String X_AUTH_TOKEN = "X-Auth-Token";
+        String X_AUTH_TENANT_ID = "X-Auth-Tenant-Id";
+        String X_AUTH_TENANT = "X-Auth-Tenant";
+        String X_AUTH_USER = "X-Auth-User";
+    }
+
     interface Auth {
+
+        String SERVICE_NAME = "IOT-CENTER-AUTH";
         String USER_URL_PREFIX = "/auth/user";
+        String BLACK_IP_URL_PREFIX = "/auth/black_ip";
+
+        String TENANT_URL_PREFIX = "/auth/tenant";
+        String TOKEN_URL_PREFIX = "/auth/token";
     }
 
     /**
