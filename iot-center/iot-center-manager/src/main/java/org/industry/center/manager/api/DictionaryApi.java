@@ -32,4 +32,45 @@ public class DictionaryApi implements DictionaryClient {
         }
         return R.fail();
     }
+
+    @Override
+    public R<List<Dictionary>> driverDictionary(String tenantId) {
+        try {
+            List<Dictionary> dictionaryList = dictionaryService.driverDictionary(tenantId);
+            if (null != dictionaryList) {
+                return R.ok(dictionaryList);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
+    }
+
+    @Override
+    public R<List<Dictionary>> driverAttributeDictionary(String tenantId) {
+        return null;
+    }
+
+    @Override
+    public R<List<Dictionary>> pointAttributeDictionary(String tenantId) {
+        return null;
+    }
+
+    @Override
+    public R<List<Dictionary>> profileDictionary(String tenantId) {
+        try {
+            List<Dictionary> dictionaryList = dictionaryService.profileDictionary(tenantId);
+            if (null != dictionaryList) {
+                return R.ok(dictionaryList);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
+    }
+
+    @Override
+    public R<List<Dictionary>> pointDictionary(String parent, String tenantId) {
+        return null;
+    }
 }

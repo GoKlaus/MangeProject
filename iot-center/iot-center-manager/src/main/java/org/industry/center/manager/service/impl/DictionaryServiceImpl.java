@@ -5,10 +5,12 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
 import org.industry.center.manager.mapper.DeviceMapper;
 import org.industry.center.manager.mapper.DriverMapper;
+import org.industry.center.manager.mapper.ProfileMapper;
 import org.industry.center.manager.service.DictionaryService;
 import org.industry.common.bean.Dictionary;
 import org.industry.common.model.Device;
 import org.industry.common.model.Driver;
+import org.industry.common.model.Profile;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -23,6 +25,9 @@ public class DictionaryServiceImpl implements DictionaryService {
     private DriverMapper driverMapper;
     @Resource
     private DeviceMapper deviceMapper;
+
+    @Resource
+    private ProfileMapper profileMapper;
 
     @Override
     public List<Dictionary> deviceDictionary(String tenantId) {
@@ -47,6 +52,16 @@ public class DictionaryServiceImpl implements DictionaryService {
         queryWrapper.eq(Driver::getTenantId, tenantId);
         List<Driver> drivers = driverMapper.selectList(queryWrapper);
         drivers.forEach(driver -> dictionaries.add(new Dictionary().setLabel(driver.getName()).setValue(driver.getId())));
+        return dictionaries;
+    }
+
+    @Override
+    public List<Dictionary> profileDictionary(String tenantId) {
+        List<Dictionary> dictionaries = new ArrayList<>(16);
+        LambdaQueryWrapper<Profile> queryWrapper = Wrappers.<Profile>query().lambda();
+        queryWrapper.eq(Profile::getTenantId, tenantId);
+        List<Profile> profiles = profileMapper.selectList(queryWrapper);
+        profiles.forEach(profile -> dictionaries.add(new Dictionary().setLabel(profile.getName()).setValue(profile.getId())));
         return dictionaries;
     }
 }

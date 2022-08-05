@@ -35,7 +35,21 @@ public interface ServiceConstant {
      */
     interface Manager {
 
+        String DRIVER_URL_PREFIX = "/manager/driver";
+        String BATCH_URL_PREFIX = "/manager/batch";
+        String DRIVER_ATTRIBUTE_URL_PREFIX = "/manager/driver_attribute";
+        String POINT_ATTRIBUTE_URL_PREFIX = "/manager/point_attribute";
+        String PROFILE_URL_PREFIX = "/manager/profile";
+        String POINT_URL_PREFIX = "/manager/point";
+        String GROUP_URL_PREFIX = "/manager/group";
+        String DEVICE_URL_PREFIX = "/manager/device";
+        String AUTO_URL_PREFIX = "/manager/auto";
+        String POINT_INFO_URL_PREFIX = "/manager/point_info";
+        String DRIVER_INFO_URL_PREFIX = "/manager/driver_info";
+        String LABEL_URL_PREFIX = "/manager/label";
         String DICTIONARY_URL_PREFIX = "/manager/dictionary";
+        String STATUS_URL_PREFIX = "/manager/status";
+        String EVENT_URL_PREFIX = "/manager/event";
 
         String SERVICE_NAME = "IOT-CENTER-MANAGER";
     }

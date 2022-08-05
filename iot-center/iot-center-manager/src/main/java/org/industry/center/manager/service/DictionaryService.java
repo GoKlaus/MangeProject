@@ -12,5 +12,12 @@ public interface DictionaryService {
      * @return Dictionary Array
      */
     List<Dictionary> driverDictionary(String tenantId);
+
+    /**
+     * @param tenantId
+     * @return
+     */
     List<Dictionary> deviceDictionary(String tenantId);
+
+    List<Dictionary> profileDictionary(String tenantId);
 }

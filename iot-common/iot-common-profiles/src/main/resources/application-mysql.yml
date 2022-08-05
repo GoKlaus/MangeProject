@@ -3,8 +3,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/dc3?allowPublicKeyRetrieval=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:admin@123}
+    username: ${MYSQL_USERNAME:klaus}
+    password: ${MYSQL_PASSWORD:123456}
     hikari:
       pool-name: iot-hikari
       max-lifetime: 1765000
