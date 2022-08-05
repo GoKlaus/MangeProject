@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<aspectj>
+    <weaver options="-Xset:weaveJavaxPackages=true">
+        <include within="com.dc3.center.manager.service..*"/>
+    </weaver>
+</aspectj>

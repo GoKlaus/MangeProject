@@ -32,6 +32,31 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+      routes:
+        # auth
+        - id: auth_route
+          uri: lb://iot-center-auth
+          predicates:
+            - Path=/api/v3/auth/user/**,/api/v3/auth/black_ip/**,/api/v3/auth/tenant/**,/api/v3/auth/dictionary/**
+          filters:
+            - StripPrefix=2
+            - Authenticator
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
+        # manager
+        - id: manager_route
+          uri: lb://iot-center-manager
+          predicates:
+            - Path=/api/v3/manager/**
+          filters:
+            - StripPrefix=2
+            - Authenticator
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
   redis:
     database: 0
 
@@ -41,7 +66,7 @@ logging:
     org.industry: debug
 
 # 开启消费方组件实例化
-feign:
-  fallback:
-    switch: true
+#feign:
+#  fallback:
+#    switch: true
 

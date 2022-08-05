@@ -19,7 +19,6 @@ import java.util.Date;
 /**
  * 基础 domain 实体类
  *
- * @author pnoker
  */
 @Data
 @NoArgsConstructor

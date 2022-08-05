@@ -6,7 +6,6 @@ import java.util.*;
 /**
  * 自定义List 用于List参数校验
  *
- * @author pnoker
  */
 public class ValidatableList<E> implements List<E> {
 

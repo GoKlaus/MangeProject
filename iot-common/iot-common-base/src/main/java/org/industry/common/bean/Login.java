@@ -13,7 +13,6 @@ import javax.validation.constraints.NotBlank;
 /**
  * Login
  *
- * @author pnoker
  */
 @Data
 @NoArgsConstructor

@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 自定义 新增数据 异常
  *
- * @author pnoker
  */
 public class AddException extends RuntimeException {
     public AddException(CharSequence template, Object... params) {

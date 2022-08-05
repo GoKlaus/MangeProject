@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 /**
  * 自定义 Empty 异常
  *
- * @author pnoker
  */
 public class EmptyException extends RuntimeException {
     public EmptyException(CharSequence template, Object... params) {

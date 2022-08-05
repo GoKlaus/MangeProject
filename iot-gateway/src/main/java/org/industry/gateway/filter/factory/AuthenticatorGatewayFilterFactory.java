@@ -8,8 +8,8 @@ import org.industry.common.exception.ServiceException;
 import org.industry.common.model.Tenant;
 import org.industry.common.utils.Dc3Util;
 import org.industry.common.utils.JsonUtil;
-import org.industry.feign.TenantClient;
-import org.industry.feign.TokenClient;
+import org.industry.api.auth.feign.TenantClient;
+import org.industry.api.auth.feign.TokenClient;
 import org.industry.gateway.utils.GatewayUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -60,7 +60,7 @@ public class AuthenticatorGatewayFilterFactory extends AbstractGatewayFilterFact
                 Login login = JsonUtil.parseObject(Dc3Util.decode(cookie), Login.class);
                 log.debug("Request cookie: {}", login);
 
-                R<Tenant> tenantR = gatewayFilter.tenantClient.selectByName(login);
+                R<Tenant> tenantR = gatewayFilter.tenantClient.selectByName(login.getName());
                 if (!tenantR.isOk() || !tenantR.getData().getEnable()) {
                     throw new ServiceException("Invalid tenant");
                 }

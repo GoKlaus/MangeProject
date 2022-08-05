@@ -10,7 +10,7 @@ public interface ServiceConstant {
      * 用来控制api包中的{@link org.springframework.cloud.openfeign.FallbackFactory}的实例
      * 是否实例化托管到容器中，这么做的意义在于服务提供不用实例化这部分不需要的Bean
      */
-    String FEIGN_FALLBACK_SWITCH = "feign.fallback.switch";
+//    String FEIGN_FALLBACK_SWITCH = "feign.fallback.switch";
 
     interface Header {
         String X_AUTH_USER_ID = "X-Auth-User-Id";

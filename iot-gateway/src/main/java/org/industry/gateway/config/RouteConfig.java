@@ -42,13 +42,46 @@ public class RouteConfig {
     @Bean
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder.routes()
+                .route("token_salt",
+                        r -> r.path("/api/v3/token/salt")
+                                .filters(
+                                        f -> f.setPath("/auth/token/salt")
+                                                .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
+                                                .circuitBreaker(h -> h.setName("default").setFallbackUri("forward:/fallback"))
+                                ).uri("lb://dc3-center-auth")
+                )
                 .route("generate_token",
                         r -> r.path("/api/v3/token/generate")
                                 .filters(
                                         f -> f.setPath("/auth/token/generate")
                                                 .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
                                                 .circuitBreaker(h -> h.setName("default").setFallbackUri("forward:/fallback"))
-                                ).uri("lb://dc3-center-auth"))
+                                ).uri("lb://dc3-center-auth")
+                )
+                .route("check_token",
+                        r -> r.path("/api/v3/token/check")
+                                .filters(
+                                        f -> f.setPath("/auth/token/check")
+                                                .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
+                                                .circuitBreaker(h -> h.setName("default").setFallbackUri("forward:/fallback"))
+                                ).uri("lb://dc3-center-auth")
+                )
+                .route("cancel_token",
+                        r -> r.path("/api/v3/token/cancel")
+                                .filters(
+                                        f -> f.setPath("/auth/token/cancel")
+                                                .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
+                                                .circuitBreaker(h -> h.setName("default").setFallbackUri("forward:/fallback"))
+                                ).uri("lb://dc3-center-auth")
+                )
+                .route("register_user",
+                        r -> r.path("/api/v3/register")
+                                .filters(
+                                        f -> f.setPath("/auth/user/add")
+                                                .requestRateLimiter(l -> l.setKeyResolver(hostKeyResolver()).setRateLimiter(redisRateLimiter()))
+                                                .circuitBreaker(h -> h.setName("default").setFallbackUri("forward:/fallback"))
+                                ).uri("lb://dc3-center-auth")
+                )
                 .build();
     }
 }

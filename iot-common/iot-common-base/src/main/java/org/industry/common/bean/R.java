@@ -12,7 +12,6 @@ import java.io.Serializable;
 /**
  * Response
  *
- * @author pnoker
  */
 @Data
 @NoArgsConstructor

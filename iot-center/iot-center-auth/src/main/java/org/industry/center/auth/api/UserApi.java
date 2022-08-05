@@ -2,7 +2,7 @@ package org.industry.center.auth.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.industry.common.constant.ServiceConstant;
-import org.industry.feign.UserClient;
+import org.industry.api.auth.feign.UserClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

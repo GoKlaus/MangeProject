@@ -2,7 +2,7 @@ package org.industry.gateway.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.industry.common.bean.R;
-import org.industry.feign.BlackIpClient;
+import org.industry.api.auth.feign.BlackIpClient;
 import org.industry.gateway.utils.GatewayUtil;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
