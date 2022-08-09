@@ -37,7 +37,8 @@ public class TokenApi implements TokenClient {
      */
     @Override
     public R<String> generateSalt(Login login) {
-        return null;
+        String salt = tokenService.generateSalt(login.getName());
+        return null != salt ? R.ok(salt, "The salt will expire in 5 minutes") : R.fail();
     }
 
     /**

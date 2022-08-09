@@ -1,0 +1,10 @@
+### 生成用户 salt
+#/api/v3/token/salt
+POST http://localhost:8000/api/v3/token/salt
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "name": "test"
+}

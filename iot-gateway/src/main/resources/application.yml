@@ -108,3 +108,4 @@ logging:
   level:
     # 日志等级
     org.industry: debug
+    org.springframework: debug

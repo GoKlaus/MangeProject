@@ -11,6 +11,7 @@
 
     <artifactId>iot-center-auth</artifactId>
     <packaging>jar</packaging>
+    <description>鉴权服务</description>
 
     <dependencies>
         <dependency>
@@ -20,6 +21,10 @@
         <dependency>
             <groupId>org.industry</groupId>
             <artifactId>iot-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.industry</groupId>
+            <artifactId>iot-common-profiles</artifactId>
         </dependency>
     </dependencies>
     <build>
