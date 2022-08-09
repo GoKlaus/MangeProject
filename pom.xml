@@ -99,6 +99,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
+            <scope>compile</scope>
             <optional>true</optional>
         </dependency>
 
@@ -250,6 +251,12 @@
             <dependency>
                 <groupId>org.industry</groupId>
                 <artifactId>iot-api-rtmp</artifactId>
+                <version>${project.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.industry</groupId>
+                <artifactId>iot-common-sdk</artifactId>
                 <version>${project.version}</version>
                 <scope>compile</scope>
             </dependency>

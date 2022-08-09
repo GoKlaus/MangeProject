@@ -18,8 +18,8 @@ public class LogsAspect {
     public void cut() {
     }
 
-    // 切面逻辑
-    @Around("cut()&&@annotation(Logs)")
+    // 切面逻辑, @annotation 与 参数Logs logs 保持一致
+    @Around("cut()&&@annotation(logs)")
     public Object doAround(ProceedingJoinPoint joinPoint, Logs logs) throws Throwable {
         String uuid = IdUtil.fastSimpleUUID();
         String className = joinPoint.getSignature().getDeclaringType().getSimpleName();

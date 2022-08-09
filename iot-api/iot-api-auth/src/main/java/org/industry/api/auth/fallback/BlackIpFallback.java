@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-//@ConditionalOnProperty(value = ServiceConstant.FEIGN_FALLBACK_SWITCH, havingValue = "true")
 public class BlackIpFallback implements FallbackFactory<BlackIpClient> {
     @Override
     public BlackIpClient create(Throwable cause) {

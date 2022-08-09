@@ -6,7 +6,7 @@ import org.industry.common.bean.R;
 import org.industry.common.constant.ServiceConstant;
 import org.industry.common.exception.ServiceException;
 import org.industry.common.model.Tenant;
-import org.industry.common.utils.Dc3Util;
+import org.industry.common.utils.IotUtil;
 import org.industry.common.utils.JsonUtil;
 import org.industry.api.auth.feign.TenantClient;
 import org.industry.api.auth.feign.TokenClient;
@@ -57,7 +57,7 @@ public class AuthenticatorGatewayFilterFactory extends AbstractGatewayFilterFact
             ServerHttpRequest request = exchange.getRequest();
             try {
                 String cookie = GatewayUtil.getRequestCookie(request, ServiceConstant.Header.X_AUTH_TOKEN);
-                Login login = JsonUtil.parseObject(Dc3Util.decode(cookie), Login.class);
+                Login login = JsonUtil.parseObject(IotUtil.decode(cookie), Login.class);
                 log.debug("Request cookie: {}", login);
 
                 R<Tenant> tenantR = gatewayFilter.tenantClient.selectByName(login.getName());

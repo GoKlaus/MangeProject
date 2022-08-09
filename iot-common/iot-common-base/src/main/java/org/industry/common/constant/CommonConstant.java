@@ -6,7 +6,7 @@ public interface CommonConstant {
         /**
          * 默认密钥
          */
-        String DEFAULT_KEY = "pnoker/dc3";
+        String DEFAULT_KEY = "klaus/iot";
 
         /**
          * 默认密码
@@ -45,6 +45,26 @@ public interface CommonConstant {
     }
 
     interface Symbol {
+
+        /**
+         * 点
+         */
+        String DOT = ".";
+
+        /**
+         * 下划线
+         */
+        String UNDERSCORE = "_";
+
+        /**
+         * 星号
+         */
+        String ASTERISK = "*";
+
+        /**
+         * 井号
+         */
+        String HASHTAG = "#";
         /**
          * 分隔符
          */

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-//@ConditionalOnProperty(value = ServiceConstant.FEIGN_FALLBACK_SWITCH, havingValue = "true")
 public class TokenFallback implements FallbackFactory<TokenClient> {
     @Override
     public TokenClient create(Throwable cause) {
@@ -19,7 +18,22 @@ public class TokenFallback implements FallbackFactory<TokenClient> {
         log.error("Fallback: {}", message);
         return new TokenClient() {
             @Override
+            public R<String> generateSalt(Login login) {
+                return R.fail(message);
+            }
+
+            @Override
+            public R<String> generateToken(Login login) {
+                return R.fail(message);
+            }
+
+            @Override
             public R<Long> checkTokenValid(Login login) {
+                return R.fail(message);
+            }
+
+            @Override
+            public R<Boolean> cancelToken(Login login) {
                 return R.fail(message);
             }
         };

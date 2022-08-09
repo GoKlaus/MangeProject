@@ -11,6 +11,12 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Logs {
 
-    String value();
+    String value() default "";
+
+    LogsType type() default LogsType.INFO;
+
+    String tag() default "";
+
+    boolean save() default false;
 
 }

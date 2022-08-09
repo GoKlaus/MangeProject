@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-//@ConditionalOnProperty(value = ServiceConstant.FEIGN_FALLBACK_SWITCH, havingValue = "true")
 public class TenantFallback implements FallbackFactory<TenantClient> {
     @Override
     public TenantClient create(Throwable cause) {

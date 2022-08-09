@@ -41,6 +41,11 @@ spring:
           filters:
             - StripPrefix=2
             - Authenticator
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
             - name: CircuitBreaker
               args:
                 name: default
@@ -53,6 +58,45 @@ spring:
           filters:
             - StripPrefix=2
             - Authenticator
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
+        # data
+        - id: data_route
+          uri: lb://iot-center-data
+          predicates:
+            - Path=/api/v3/data/**
+          filters:
+            - StripPrefix=2
+            #- Authenticator
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
+        # rtmp
+        - id: rtmp_route
+          uri: lb://dc3-transfer-rtmp
+          predicates:
+            - Path=/api/v3/rtmp/**
+          filters:
+            - StripPrefix=2
+            - Authenticator
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@hostKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
             - name: CircuitBreaker
               args:
                 name: default

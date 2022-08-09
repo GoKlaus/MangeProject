@@ -28,6 +28,7 @@ public interface ServiceConstant {
 
         String TENANT_URL_PREFIX = "/auth/tenant";
         String TOKEN_URL_PREFIX = "/auth/token";
+        String DICTIONARY_URL_PREFIX = "/auth/dictionary";
     }
 
     /**
