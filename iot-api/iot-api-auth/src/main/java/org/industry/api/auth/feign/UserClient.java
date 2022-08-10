@@ -1,7 +1,6 @@
 package org.industry.api.auth.feign;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.industry.api.auth.fallback.TokenFallback;
 import org.industry.api.auth.fallback.UserFallback;
 import org.industry.common.bean.R;
 import org.industry.common.constant.ServiceConstant;

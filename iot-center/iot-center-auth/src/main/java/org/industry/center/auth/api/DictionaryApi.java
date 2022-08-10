@@ -23,16 +23,40 @@ public class DictionaryApi implements DictionaryClient {
 
     @Override
     public R<List<Dictionary>> tenantDictionary() {
-        return null;
+        try {
+            List<Dictionary> list = dictionaryService.tenantDictionary();
+            if (null != list) {
+                return R.ok(list);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<List<Dictionary>> userDictionary(String tenantId) {
-        return null;
+        try {
+            List<Dictionary> list = dictionaryService.userDictionary();
+            if (null != list) {
+                return R.ok(list);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<List<Dictionary>> blackIpDictionary(String tenantId) {
-        return null;
+        try {
+            List<Dictionary> list = dictionaryService.blackIpDictionary();
+            if (null != list) {
+                return R.ok(list);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 }

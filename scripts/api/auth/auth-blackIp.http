@@ -1,0 +1,53 @@
+### 添加黑名单
+#/auth/black_ip/add
+POST http://localhost:8300/auth/black_ip/add
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "ip": "test",
+  "enable": true
+}
+
+### 删除黑名单
+#/auth/black_ip/delete/{id}
+GET http://localhost:8300/auth/black_ip/delete/1557231191822200833
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### 更新黑名单
+#/auth/black_ip/update
+POST http://localhost:8300/auth/black_ip/update
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+{
+  "ip": "test",
+  "id": "1557231191822200833",
+  "enable": false
+}
+
+### id查询
+#/auth/black_ip/id/{id}
+GET http://localhost:8300/auth/black_ip/id/1557231191822200833
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### IP查询
+#/auth/black_ip/ip/{ip}
+GET http://localhost:8300/auth/black_ip/ip/test
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### 检查IP
+#/auth/black_ip/check/{ip}
+GET http://localhost:8300/auth/black_ip/check/1557231191822200833
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+

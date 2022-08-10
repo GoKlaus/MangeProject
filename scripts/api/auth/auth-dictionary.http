@@ -1,0 +1,20 @@
+### 租户字典
+#/auth/dictionary/tenant
+GET http://localhost:8300/auth/dictionary/tenant
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### 用户字典
+#/auth/dictionary/user
+GET http://localhost:8300/auth/dictionary/user
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache
+
+### 黑名单字典
+#/auth/dictionary/black_ip
+GET http://localhost:8300/auth/dictionary/black_ip
+Accept: */*
+Content-Type: application/json
+Cache-Control: no-cache

@@ -1,12 +1,15 @@
 package org.industry.center.auth.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.extern.slf4j.Slf4j;
 import org.industry.center.auth.mapper.BlackIpMapper;
 import org.industry.center.auth.service.BlackIpService;
+import org.industry.common.bean.Pages;
 import org.industry.common.dto.BlackIpDto;
+import org.industry.common.exception.ServiceException;
 import org.industry.common.model.BlackIp;
 import org.springframework.stereotype.Service;
 
@@ -42,12 +45,19 @@ public class BlackIpServiceImpl implements BlackIpService {
     /**
      * 新增
      *
-     * @param type Object
+     * @param blackIp Object
      * @return Object
      */
     @Override
-    public BlackIp add(BlackIp type) {
-        return null;
+    public BlackIp add(BlackIp blackIp) {
+        BlackIp select = selectByIp(blackIp.getIp());
+        if (null != select) {
+            throw new ServiceException("black ip already exists");
+        }
+        if (blackIpMapper.insert(blackIp) > 0) {
+            return blackIpMapper.selectById(blackIp.getId());
+        }
+        throw new ServiceException("add black ip failed");
     }
 
     /**
@@ -58,18 +68,28 @@ public class BlackIpServiceImpl implements BlackIpService {
      */
     @Override
     public boolean delete(String id) {
-        return false;
+        BlackIp select = selectById(id);
+        if (null == select) {
+            throw new ServiceException("black ip doesn't exists");
+        }
+        return blackIpMapper.deleteById(id) > 0;
     }
 
     /**
      * 更新
      *
-     * @param type Object
+     * @param blackIp BlackIp
      * @return Object
      */
     @Override
-    public BlackIp update(BlackIp type) {
-        return null;
+    public BlackIp update(BlackIp blackIp) {
+        blackIp.setIp(null).setUpdateTime(null);
+        if (blackIpMapper.updateById(blackIp) > 0) {
+            BlackIp select = blackIpMapper.selectById(blackIp.getId());
+            blackIp.setIp(select.getIp());
+            return select;
+        }
+        throw new ServiceException("black ip update failed");
     }
 
     /**
@@ -80,7 +100,7 @@ public class BlackIpServiceImpl implements BlackIpService {
      */
     @Override
     public BlackIp selectById(String id) {
-        return null;
+        return blackIpMapper.selectById(id);
     }
 
     /**
@@ -91,7 +111,10 @@ public class BlackIpServiceImpl implements BlackIpService {
      */
     @Override
     public Page<BlackIp> list(BlackIpDto dto) {
-        return null;
+        if (null == dto.getPage()) {
+            dto.setPage(new Pages());
+        }
+        return blackIpMapper.selectPage(dto.getPage().convert(), fuzzyQuery(dto));
     }
 
     /**
@@ -102,6 +125,12 @@ public class BlackIpServiceImpl implements BlackIpService {
      */
     @Override
     public LambdaQueryWrapper<BlackIp> fuzzyQuery(BlackIpDto dto) {
-        return null;
+        LambdaQueryWrapper<BlackIp> wrapper = Wrappers.<BlackIp>query().lambda();
+
+        if (null != dto && StrUtil.isNotBlank(dto.getIp())) {
+            wrapper.like(BlackIp::getIp, dto.getIp());
+
+        }
+        return wrapper;
     }
 }

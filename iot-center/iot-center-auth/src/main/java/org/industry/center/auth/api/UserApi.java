@@ -21,43 +21,96 @@ public class UserApi implements UserClient {
 
     @Resource
     private UserService userService;
+
     @Override
     public R<User> add(User user) {
-        return null;
+        try {
+            User add = userService.add(user);
+            if (null != add) {
+                return R.ok(user);
+            }
+        } catch (Exception e) {
+            R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<Boolean> delete(String id) {
-        return null;
+        try {
+            return userService.delete(id) ? R.ok() : R.fail();
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
     }
 
     @Override
     public R<User> update(User user) {
-        return null;
+        try {
+            User update = userService.update(user);
+            if (null != update) {
+                return R.ok(update);
+            }
+        } catch (Exception e) {
+            R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<Boolean> restPassword(String id) {
-        return null;
+        try {
+            return userService.resetPassword(id) ? R.ok() : R.fail();
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
     }
 
     @Override
     public R<User> selectById(String id) {
-        return null;
+        try {
+            User user = userService.selectById(id);
+            if (null != user) {
+                R.ok(user);
+            }
+        } catch (Exception e) {
+            R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<User> selectByName(String name) {
-        return null;
+        try {
+            User user = userService.selectByName(name, false);
+            if (null != user) {
+                return R.ok(user);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<Page<User>> list(UserDto userDto) {
-        return null;
+        try {
+            Page<User> list = userService.list(userDto);
+            if (null != list) {
+                return R.ok(list);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     @Override
     public R<Boolean> checkUserValid(String name) {
-        return null;
+        try {
+            return userService.checkUserValid(name) ? R.ok() : R.fail();
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
     }
 }
