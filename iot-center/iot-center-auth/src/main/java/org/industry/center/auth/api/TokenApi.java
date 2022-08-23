@@ -20,9 +20,10 @@ import javax.annotation.Resource;
 public class TokenApi implements TokenClient {
     @Resource
     private TokenService tokenService;
+
     @Override
     public R<Long> checkTokenValid(Login login) {
-       TokenValid tokenValid = tokenService.checkTokenValid(login.getName(), login.getSalt(), login.getToken());
+        TokenValid tokenValid = tokenService.checkTokenValid(login.getName(), login.getSalt(), login.getToken());
         if (tokenValid.isValid()) {
             return R.ok(tokenValid.getExpireTime().getTime(), "The token will expire in " + IotUtil.formatCompleteData(tokenValid.getExpireTime()));
         }
@@ -49,7 +50,8 @@ public class TokenApi implements TokenClient {
      */
     @Override
     public R<String> generateToken(Login login) {
-        return null;
+        String token = tokenService.generateToken(login.getTenant(), login.getName(), login.getSalt(), login.getPassword());
+        return null != token ? R.ok(token, "The token will expire in 12 hours.") : R.fail();
     }
 
     /**
@@ -60,6 +62,6 @@ public class TokenApi implements TokenClient {
      */
     @Override
     public R<Boolean> cancelToken(Login login) {
-        return null;
+        return tokenService.cancelToken(login.getName()) ? R.ok() : R.fail();
     }
 }

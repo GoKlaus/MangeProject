@@ -20,6 +20,22 @@ public interface CacheConstant {
 
     interface Entity {
         String USER = "user";
+        String TENANT = "tenant";
+        String TENANT_BIND = "tenant_bind";
+        String BLACK_IP = "black_ip";
+        String RTMP = "rtmp";
+        String DRIVER = "driver";
+        String DRIVER_INFO = "driver_info";
+        String DRIVER_ATTRIBUTE = "driver_attribute";
+        String PROFILE = "profile";
+        String PROFILE_BIND = "profile_bind";
+        String GROUP = "group";
+        String DEVICE = "device";
+        String POINT = "point";
+        String POINT_ATTRIBUTE = "point_attribute";
+        String POINT_INFO = "point_info";
+        String LABEL = "label";
+        String LABEL_BIND = "label_bind";
     }
 
     interface Suffix {

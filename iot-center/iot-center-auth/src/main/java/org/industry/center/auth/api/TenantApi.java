@@ -9,6 +9,7 @@ import org.industry.common.constant.ServiceConstant;
 import org.industry.common.dto.TenantDto;
 import org.industry.common.model.Tenant;
 import org.industry.api.auth.feign.TenantClient;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +41,7 @@ public class TenantApi implements TenantClient {
      * @return
      */
     @Override
+    @Validated
     public R<Tenant> add(Tenant tenant) {
         try {
             Tenant add = tenantService.add(tenant);
@@ -88,7 +90,15 @@ public class TenantApi implements TenantClient {
      */
     @Override
     public R<Tenant> selectById(String id) {
-        return null;
+        try {
+            Tenant tenant = tenantService.selectById(id);
+            if (null != tenant) {
+                return R.ok(tenant);
+            }
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.fail();
     }
 
     /**

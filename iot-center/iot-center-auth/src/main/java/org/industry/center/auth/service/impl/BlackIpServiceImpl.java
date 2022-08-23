@@ -8,9 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.industry.center.auth.mapper.BlackIpMapper;
 import org.industry.center.auth.service.BlackIpService;
 import org.industry.common.bean.Pages;
+import org.industry.common.constant.CacheConstant;
 import org.industry.common.dto.BlackIpDto;
 import org.industry.common.exception.ServiceException;
 import org.industry.common.model.BlackIp;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,6 +41,7 @@ public class BlackIpServiceImpl implements BlackIpService {
     }
 
     @Override
+    @Cacheable(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.IP, key = "#ip", unless = "#result==null")
     public BlackIp selectByIp(String ip) {
         LambdaQueryWrapper<BlackIp> queryWrapper = Wrappers.<BlackIp>query().lambda();
         queryWrapper.eq(BlackIp::getIp, ip);
@@ -49,6 +55,11 @@ public class BlackIpServiceImpl implements BlackIpService {
      * @return Object
      */
     @Override
+    @Caching(
+            put = {@CachePut(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.ID, key = "#blackIp.id", condition = "#result!=null"),
+                    @CachePut(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.IP, key = "#blackIp.ip", condition = "#result!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")}
+    )
     public BlackIp add(BlackIp blackIp) {
         BlackIp select = selectByIp(blackIp.getIp());
         if (null != select) {
@@ -67,6 +78,11 @@ public class BlackIpServiceImpl implements BlackIpService {
      * @return Boolean
      */
     @Override
+    @Caching(evict = {
+            @CacheEvict(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.ID, key = "#id", condition = "#result!=null"),
+            @CacheEvict(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.IP, allEntries = true, condition = "#result!=null"),
+            @CacheEvict(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")
+    })
     public boolean delete(String id) {
         BlackIp select = selectById(id);
         if (null == select) {
@@ -82,6 +98,10 @@ public class BlackIpServiceImpl implements BlackIpService {
      * @return Object
      */
     @Override
+    @Caching(put = {@CachePut(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.ID, key = "#blackIp.id", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.IP, key = "#blackIp.ip", condition = "#result!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")}
+    )
     public BlackIp update(BlackIp blackIp) {
         blackIp.setIp(null).setUpdateTime(null);
         if (blackIpMapper.updateById(blackIp) > 0) {
@@ -99,6 +119,7 @@ public class BlackIpServiceImpl implements BlackIpService {
      * @return Object
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.ID, key = "#id", unless = "#result==null")
     public BlackIp selectById(String id) {
         return blackIpMapper.selectById(id);
     }
@@ -110,6 +131,7 @@ public class BlackIpServiceImpl implements BlackIpService {
      * @return Page<Object>
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.LIST, keyGenerator = "commonKeyGenerator", unless = "#result==null")
     public Page<BlackIp> list(BlackIpDto dto) {
         if (null == dto.getPage()) {
             dto.setPage(new Pages());

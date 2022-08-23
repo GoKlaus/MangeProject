@@ -2,6 +2,6 @@
 
 <aspectj>
     <weaver options="-Xset:weaveJavaxPackages=true">
-        <include within="com.dc3.center.manager.service..*"/>
+        <include within="org.industry.center.manager.service..*"/>
     </weaver>
 </aspectj>

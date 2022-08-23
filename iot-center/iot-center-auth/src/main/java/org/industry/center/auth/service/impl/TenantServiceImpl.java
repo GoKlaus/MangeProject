@@ -8,10 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.industry.center.auth.mapper.TenantMapper;
 import org.industry.center.auth.service.TenantService;
 import org.industry.common.bean.Pages;
+import org.industry.common.constant.CacheConstant;
 import org.industry.common.dto.TenantDto;
 import org.industry.common.exception.NotFoundException;
 import org.industry.common.exception.ServiceException;
 import org.industry.common.model.Tenant;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -24,6 +29,7 @@ public class TenantServiceImpl implements TenantService {
     private TenantMapper tenantMapper;
 
     @Override
+    @Cacheable(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.NAME, key = "#name", unless = "#result==null")
     public Tenant selectByName(String name) {
         LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.<Tenant>query().lambda();
         queryWrapper.eq(Tenant::getName, name);
@@ -37,19 +43,25 @@ public class TenantServiceImpl implements TenantService {
     /**
      * 新增
      *
-     * @param type Object
+     * @param tenant Object
      * @return Object
      */
     @Override
-    public Tenant add(Tenant type) {
-        Tenant tenant = selectByName(type.getName());
-        if (null != tenant) {
-            throw new ServiceException("tenant name already exists");
+    @Caching(
+            put = {@CachePut(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.ID, key = "#tenant.id", condition = "#result!=null"),
+                    @CachePut(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.NAME, key = "#tenant.name", condition = "#result!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")}
+    )
+    public Tenant add(Tenant tenant) {
+        Tenant select = selectByName(tenant.getName());
+        if (null != select) {
+            throw new ServiceException("select name already exists");
         }
-        if (tenantMapper.insert(type) > 0) {
-            return selectById(type.getId());
+        if (tenantMapper.insert(tenant) > 0) {
+            return selectById(tenant.getId());
         }
-        throw new ServiceException("tenant add failed");
+        throw new ServiceException("select add failed");
     }
 
     /**
@@ -59,10 +71,16 @@ public class TenantServiceImpl implements TenantService {
      * @return Boolean
      */
     @Override
+    @Caching(
+            evict = {@CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.ID, key = "#id", condition = "#result==true"),
+                    @CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.NAME, allEntries = true, condition = "#result==true"),
+                    @CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result==true"),
+                    @CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result==true")}
+    )
     public boolean delete(String id) {
         Tenant tenant = selectById(id);
         if (null != tenant) {
-            throw new ServiceException("tenant does't exists");
+            throw new ServiceException("tenant doesn't exists");
         }
         return tenantMapper.deleteById(id) > 0;
     }
@@ -74,6 +92,10 @@ public class TenantServiceImpl implements TenantService {
      * @return Object
      */
     @Override
+    @Caching(put = {@CachePut(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.ID, key = "#tenant.id", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.NAME, key = "#tenant.name", condition = "#result!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")})
     public Tenant update(Tenant tenant) {
         tenant.setName(null).setUpdateTime(null);
         if (tenantMapper.updateById(tenant) > 0) {
@@ -91,6 +113,7 @@ public class TenantServiceImpl implements TenantService {
      * @return Object
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.ID, key = "#id", unless = "#result==null")
     public Tenant selectById(String id) {
         return tenantMapper.selectById(id);
     }
@@ -102,6 +125,7 @@ public class TenantServiceImpl implements TenantService {
      * @return Page<Object>
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.LIST, keyGenerator = "commonKeyGenerator", unless = "#result==null")
     public Page<Tenant> list(TenantDto dto) {
         if (null == dto.getPage()) {
             dto.setPage(new Pages());
@@ -118,7 +142,7 @@ public class TenantServiceImpl implements TenantService {
     @Override
     public LambdaQueryWrapper<Tenant> fuzzyQuery(TenantDto dto) {
         LambdaQueryWrapper<Tenant> wrapper = Wrappers.<Tenant>query().lambda();
-        if(null != dto && StrUtil.isNotBlank(dto.getName())) {
+        if (null != dto && StrUtil.isNotBlank(dto.getName())) {
             wrapper.like(Tenant::getName, dto.getName());
         }
         return wrapper;

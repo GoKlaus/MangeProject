@@ -9,9 +9,11 @@ import org.industry.center.auth.mapper.TenantMapper;
 import org.industry.center.auth.mapper.UserMapper;
 import org.industry.center.auth.service.DictionaryService;
 import org.industry.common.bean.Dictionary;
+import org.industry.common.constant.CacheConstant;
 import org.industry.common.model.BlackIp;
 import org.industry.common.model.Tenant;
 import org.industry.common.model.User;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -32,6 +34,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.TENANT + CacheConstant.Suffix.DIC, key = "'dic'", unless = "#result==null")
     public List<Dictionary> tenantDictionary() {
         List<Dictionary> list = Lists.newArrayListWithCapacity(16);
         LambdaQueryWrapper<Tenant> queryWrapper = Wrappers.<Tenant>query().lambda();
@@ -44,6 +47,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.DIC, key = "'dic.'+#tenantId", unless = "#result==null")
     public List<Dictionary> userDictionary() {
         List<Dictionary> list = Lists.newArrayListWithCapacity(16);
         LambdaQueryWrapper<User> queryWrapper = Wrappers.<User>query().lambda();
@@ -56,6 +60,7 @@ public class DictionaryServiceImpl implements DictionaryService {
      * @return
      */
     @Override
+    @Cacheable(value = CacheConstant.Entity.BLACK_IP + CacheConstant.Suffix.DIC, key = "'dic.'+#tenantId", unless = "#result==null")
     public List<Dictionary> blackIpDictionary() {
         List<Dictionary> list = Lists.newArrayListWithCapacity(16);
         LambdaQueryWrapper<BlackIp> queryWrapper = Wrappers.<BlackIp>query().lambda();

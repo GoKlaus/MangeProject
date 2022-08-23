@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: @project.artifactId@
+    name: '@project.artifactId@'
   profiles:
     active:
       - server

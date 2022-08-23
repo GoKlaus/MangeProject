@@ -10,12 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.industry.center.auth.mapper.UserMapper;
 import org.industry.center.auth.service.UserService;
 import org.industry.common.bean.Pages;
+import org.industry.common.constant.CacheConstant;
 import org.industry.common.constant.CommonConstant;
 import org.industry.common.dto.UserDto;
 import org.industry.common.exception.*;
 import org.industry.common.model.User;
 import org.industry.common.utils.IotUtil;
 import org.industry.core.annotation.Logs;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +36,12 @@ public class UserServiceImpl implements UserService {
 
     @Logs("Add user")
     @Transactional
+    @Caching(put = {@CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.ID, key = "#user.id", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.NAME, key = "#user.name", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.PHONE, key = "#user.phone", condition = "#result!=null&&#user.phone!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.EMAIL, key = "#user.email", condition = "#result!=null&&#user.email!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")})
     @Override
     public User add(User user) {
         // 判断用户是否存在
@@ -63,7 +74,14 @@ public class UserServiceImpl implements UserService {
         throw new AddException("user add failed: {}", user.toString());
     }
 
+    @Caching(evict = {@CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.ID, key = "#id", condition = "#result==true"),
+            @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.NAME, allEntries = true, condition = "#result==true"),
+            @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.PHONE, allEntries = true, condition = "#result==true"),
+            @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.EMAIL, allEntries = true, condition = "#result==true"),
+            @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result==true"),
+            @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result==true")})
     @Override
+    @Transactional
     public boolean delete(String id) {
         User user = selectById(id);
         if (null == user) {
@@ -72,6 +90,16 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteById(id) > 0;
     }
 
+
+    @Caching(put = {@CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.ID, key = "#user.id", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.NAME, key = "#user.name", condition = "#result!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.PHONE, key = "#user.phone", condition = "#result!=null&&#user.phone!=null"),
+            @CachePut(value = CacheConstant.Entity.USER + CacheConstant.Suffix.EMAIL, key = "#user.email", condition = "#result!=null&&#user.email!=null")},
+            evict = {@CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.PHONE, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.EMAIL, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.DIC, allEntries = true, condition = "#result!=null"),
+                    @CacheEvict(value = CacheConstant.Entity.USER + CacheConstant.Suffix.LIST, allEntries = true, condition = "#result!=null")})
+    @Transactional
     @Override
     public User update(User user) {
         User select = selectById(user.getId());
@@ -108,6 +136,7 @@ public class UserServiceImpl implements UserService {
         throw new ServiceException("user update failed");
     }
 
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.EMAIL, key = "#email", unless = "#result==null")
     @Override
     public User selectByEmail(String email, boolean isExt) {
         if (StrUtil.isEmpty(email)) {
@@ -120,6 +149,7 @@ public class UserServiceImpl implements UserService {
         return selectByKey(User::getEmail, email, isExt);
     }
 
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.PHONE, key = "#phone", unless = "#result==null")
     @Override
     public User selectByPhone(String phone, boolean isExt) {
         if (StrUtil.isEmpty(phone)) {
@@ -145,11 +175,13 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.ID, key = "#id", unless = "#result==null")
     @Override
     public User selectById(String id) {
         return userMapper.selectById(id);
     }
 
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.LIST, keyGenerator = "commonKeyGenerator", unless = "#result==null")
     @Override
     public Page<User> list(UserDto userDto) {
         if (!Optional.ofNullable(userDto.getPage()).isPresent()) {
@@ -187,11 +219,11 @@ public class UserServiceImpl implements UserService {
      * @param name
      * @return
      */
+    @Cacheable(value = CacheConstant.Entity.USER + CacheConstant.Suffix.NAME, key = "#name", unless = "#result==null")
     @Override
     public User selectByName(String name, boolean isExt) {
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>query().lambda();
         wrapper.eq(User::getName, name);
-
         return userMapper.selectOne(wrapper);
     }
 
