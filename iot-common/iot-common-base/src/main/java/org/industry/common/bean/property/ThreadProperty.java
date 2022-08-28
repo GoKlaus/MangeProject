@@ -11,26 +11,19 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.common.bean.property;
+
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * 数据相关
- *
  * @author pnoker
  */
-public interface ValueConstant {
-    /**
-     * 类型相关
-     */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+@Setter
+@Getter
+public class ThreadProperty {
+    private String prefix;
+    private int corePoolSize;
+    private int maximumPoolSize;
+    private int keepAliveTime;
 }

@@ -11,26 +11,26 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.common.bean.driver;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * 数据相关
+ * 属性配置
  *
  * @author pnoker
  */
-public interface ValueConstant {
+@Data
+@AllArgsConstructor
+public class AttributeInfo {
     /**
-     * 类型相关
+     * 值，string，需要通过type确定真实的数据类型
      */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+    private String value;
+
+    /**
+     * 类型，value type，用于确定value的真实类型
+     */
+    private String type;
 }

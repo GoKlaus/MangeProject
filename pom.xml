@@ -54,6 +54,8 @@
         <jaxb.api.version>2.3.1</jaxb.api.version>
         <jaxb.version>3.0.2</jaxb.version>
         <jwt.version>0.9.1</jwt.version>
+
+        <elasticsearch.version>7.17.4</elasticsearch.version>
     </properties>
     <!--插件仓库-->
     <pluginRepositories>
@@ -186,6 +188,12 @@
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-core</artifactId>
                 <version>${jaxb.version}</version>
+            </dependency>
+            <!-- Elasticsearch 相关 -->
+            <dependency>
+                <groupId>co.elastic.clients</groupId>
+                <artifactId>elasticsearch-java</artifactId>
+                <version>${elasticsearch.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.json</groupId>

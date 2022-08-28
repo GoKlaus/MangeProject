@@ -41,7 +41,6 @@ public class TenantApi implements TenantClient {
      * @return
      */
     @Override
-    @Validated
     public R<Tenant> add(Tenant tenant) {
         try {
             Tenant add = tenantService.add(tenant);

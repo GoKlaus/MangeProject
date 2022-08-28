@@ -11,26 +11,23 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.center.manager.service;
+
+import org.industry.common.base.Service;
+import org.industry.common.dto.LabelDto;
+import org.industry.common.model.Label;
 
 /**
- * 数据相关
+ * Label Interface
  *
  * @author pnoker
  */
-public interface ValueConstant {
+public interface LabelService extends Service<Label, LabelDto> {
     /**
-     * 类型相关
+     * 根据标签 NAME 查询
+     *
+     * @param name
+     * @return
      */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+    Label selectByName(String name, String tenantId);
 }

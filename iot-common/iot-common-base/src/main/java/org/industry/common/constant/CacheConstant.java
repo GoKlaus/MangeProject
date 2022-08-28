@@ -1,7 +1,27 @@
+/*
+ * Copyright (c) 2022. Pnoker. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.industry.common.constant;
 
+/**
+ * 缓存相关
+ *
+ * @author pnoker
+ */
 public interface CacheConstant {
-
+    /**
+     * 超时相关
+     */
     interface Timeout {
         /**
          * salt 在 redis 中的失效时间，分钟
@@ -15,15 +35,17 @@ public interface CacheConstant {
          * token 在 redis 中的失效时间，小时
          */
         int TOKEN_CACHE_TIMEOUT = 12;
-
     }
 
+    /**
+     * 实体相关
+     */
     interface Entity {
-        String USER = "user";
         String TENANT = "tenant";
         String TENANT_BIND = "tenant_bind";
         String BLACK_IP = "black_ip";
         String RTMP = "rtmp";
+        String USER = "user";
         String DRIVER = "driver";
         String DRIVER_INFO = "driver_info";
         String DRIVER_ATTRIBUTE = "driver_attribute";
@@ -38,6 +60,18 @@ public interface CacheConstant {
         String LABEL_BIND = "label_bind";
     }
 
+    /**
+     * 前缀相关
+     */
+    interface Prefix {
+        String REAL_TIME_VALUE_KEY_PREFIX = Entity.POINT + Suffix.VALUE + CommonConstant.Symbol.SEPARATOR;
+        String DRIVER_STATUS_KEY_PREFIX = Entity.DRIVER + Suffix.STATUS + CommonConstant.Symbol.SEPARATOR;
+        String DEVICE_STATUS_KEY_PREFIX = Entity.DEVICE + Suffix.STATUS + CommonConstant.Symbol.SEPARATOR;
+    }
+
+    /**
+     * 后缀相关
+     */
     interface Suffix {
         String ID = "_id";
         String TENANT_ID = "_tenant_id";
@@ -67,4 +101,5 @@ public interface CacheConstant {
         String LIST = "_list";
         String DIC = "_dic";
     }
+
 }

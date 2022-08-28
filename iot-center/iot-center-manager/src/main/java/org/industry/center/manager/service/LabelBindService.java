@@ -11,26 +11,17 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.center.manager.service;
+
+import org.industry.common.base.Service;
+import org.industry.common.dto.LabelBindDto;
+import org.industry.common.model.LabelBind;
 
 /**
- * 数据相关
+ * LabelBind Interface
  *
  * @author pnoker
  */
-public interface ValueConstant {
-    /**
-     * 类型相关
-     */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+public interface LabelBindService extends Service<LabelBind, LabelBindDto> {
+
 }

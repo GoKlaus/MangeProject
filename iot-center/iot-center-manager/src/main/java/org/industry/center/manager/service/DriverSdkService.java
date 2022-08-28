@@ -11,26 +11,21 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.center.manager.service;
+
+import org.industry.common.bean.driver.DriverRegister;
 
 /**
- * 数据相关
+ * Driver Sdk Interface
  *
  * @author pnoker
  */
-public interface ValueConstant {
+public interface DriverSdkService {
+
     /**
-     * 类型相关
+     * 驱动注册
+     *
+     * @param driverRegister DriverRegister
      */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+    void driverRegister(DriverRegister driverRegister);
 }

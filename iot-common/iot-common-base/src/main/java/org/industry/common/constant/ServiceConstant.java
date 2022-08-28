@@ -1,40 +1,55 @@
+/*
+ * Copyright (c) 2022. Pnoker. All Rights Reserved.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.industry.common.constant;
 
 /**
- * 服务常量
+ * 服务相关
+ *
+ * @author pnoker
  */
 public interface ServiceConstant {
 
     /**
-     * 搭配{@link org.springframework.boot.autoconfigure.condition.ConditionalOnProperty}条件使用
-     * 用来控制api包中的{@link org.springframework.cloud.openfeign.FallbackFactory}的实例
-     * 是否实例化托管到容器中，这么做的意义在于服务提供不用实例化这部分不需要的Bean
+     * 请求 Header 相关
      */
-//    String FEIGN_FALLBACK_SWITCH = "feign.fallback.switch";
-
     interface Header {
-        String X_AUTH_USER_ID = "X-Auth-User-Id";
-        String X_AUTH_TOKEN = "X-Auth-Token";
-        String X_AUTH_TENANT_ID = "X-Auth-Tenant-Id";
-        String X_AUTH_TENANT = "X-Auth-Tenant";
         String X_AUTH_USER = "X-Auth-User";
+        String X_AUTH_SALT = "X-Auth-Salt";
+        String X_AUTH_TOKEN = "X-Auth-Token";
+        String X_AUTH_USER_ID = "X-Auth-User-Id";
+        String X_AUTH_TENANT = "X-Auth-Tenant";
+        String X_AUTH_TENANT_ID = "X-Auth-Tenant-Id";
     }
 
+    /**
+     * 权限服务相关
+     */
     interface Auth {
+        String SERVICE_NAME = "DC3-CENTER-AUTH";
 
-        String SERVICE_NAME = "IOT-CENTER-AUTH";
         String USER_URL_PREFIX = "/auth/user";
-        String BLACK_IP_URL_PREFIX = "/auth/black_ip";
-
         String TENANT_URL_PREFIX = "/auth/tenant";
         String TOKEN_URL_PREFIX = "/auth/token";
+        String BLACK_IP_URL_PREFIX = "/auth/black_ip";
         String DICTIONARY_URL_PREFIX = "/auth/dictionary";
     }
 
     /**
-     * manager 模块常量
+     * 管理服务相关
      */
     interface Manager {
+        String SERVICE_NAME = "DC3-CENTER-MANAGER";
 
         String DRIVER_URL_PREFIX = "/manager/driver";
         String BATCH_URL_PREFIX = "/manager/batch";
@@ -51,7 +66,32 @@ public interface ServiceConstant {
         String DICTIONARY_URL_PREFIX = "/manager/dictionary";
         String STATUS_URL_PREFIX = "/manager/status";
         String EVENT_URL_PREFIX = "/manager/event";
-
-        String SERVICE_NAME = "IOT-CENTER-MANAGER";
     }
+
+    /**
+     * 数据服务相关
+     */
+    interface Data {
+        String SERVICE_NAME = "DC3-CENTER-DATA";
+
+        String VALUE_URL_PREFIX = "/data/point_value";
+    }
+
+    /**
+     * 视频服务相关
+     */
+    interface Rtmp {
+        String SERVICE_NAME = "DC3-TRANSFER-RTMP";
+
+        String URL_PREFIX = "/transfer/rtmp";
+    }
+
+    /**
+     * 驱动服务相关
+     */
+    interface Driver {
+        String COMMAND_URL_PREFIX = "/driver/command";
+    }
+
+
 }

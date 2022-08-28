@@ -11,26 +11,27 @@
  * limitations under the License.
  */
 
-package org.industry.common.constant;
+package org.industry.common.bean.driver;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
- * 数据相关
- *
  * @author pnoker
  */
-public interface ValueConstant {
-    /**
-     * 类型相关
-     */
-    interface Type {
-        String HEX = "hex";
-        String BYTE = "byte";
-        String SHORT = "short";
-        String INT = "int";
-        String LONG = "long";
-        String FLOAT = "float";
-        String DOUBLE = "double";
-        String BOOLEAN = "boolean";
-        String STRING = "string";
-    }
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+public class DriverConfiguration implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private String type;
+    private String command;
+    private Object content;
+    private String response;
 }
