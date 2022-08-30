@@ -8,6 +8,7 @@ spring:
       pool:
         max-active: 64
         min-idle: 4
+  # @caching @cacheable的实现类型，type = redis
   cache:
     type: redis
     cache-names: dc3-cache

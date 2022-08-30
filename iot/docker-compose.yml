@@ -1,0 +1,186 @@
+version: '3'
+
+services:
+#  iot:
+#    build:
+#      context: ../
+#      dockerfile: ./Dockerfile
+#    image: klaus/iot:1.0.0
+#
+#  gateway:
+#    build:
+#      context: ../iot-gateway/
+#      dockerfile: ./Dockerfile
+#    image: klaus/iot-gateway:1.0.0
+
+  register:
+    build:
+      context: ../iot-center/iot-center-register/
+      dockerfile:  ./Dockerfile
+    image: klaus/iot-register:1.0.0
+    restart: always
+    ports:
+      - 8100:8100
+    environment:
+      - NODE_ENV=dev
+      - EUREKA_DASHBOARD_PATH=/
+      - EUREKA_HOST=iot-center-register
+      - EUREKA_PORT=8100
+      - SECURITY_USER_NAME=dc3
+      - SECURITY_USER_PASSWORD=dc3
+    container_name: iot-center-register
+    hostname: iot-center-register
+    volumes:
+      - logs:/iot-center/iot-center-register/iot/logs
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - dc3-center-register
+  auth:
+    build:
+      context: ../iot-center/iot-center-auth/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-center-auth:1.0.0
+    restart: always
+    ports:
+      - 8300:8300
+    environment:
+      - NODE_ENV=dev
+      - MYSQL_HOST=iot-mysql
+      - MYSQL_PORT=3306
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=dc3
+      - REDIS_HOST=iot-redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=dc3
+      - CACHE_REDIS_TIME_TO_LIVE=6H
+      - EUREKA_HOST=iot-center-register
+      - EUREKA_PORT=8100
+      - SECURITY_USER_NAME=dc3
+      - SECURITY_USER_PASSWORD=dc3
+    container_name: iot-center-auth
+    hostname: iot-center-auth
+    volumes:
+      - logs:/iot-center/iot-center-auth/iot/logs
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - dc3-center-auth
+
+  mysql:
+    build:
+      context: ./dependencies/mysql/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-mysql:1.0.0
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=dc3
+    container_name: iot-mysql
+    hostname: iot-mysql
+    volumes:
+      - mysql:/var/lib/mysql
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-mysql
+
+  mongo:
+    build:
+      context: ./dependencies/mongo/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-mongo:1.0.0
+    restart: always
+    ports:
+      - 27017:27017
+    container_name: iot-mongo
+    hostname: iot-mongo
+    volumes:
+      - mongo_config:/data/configdb
+      - mongo_db:/data/db
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-mongo
+
+  redis:
+    build:
+      context: ./dependencies/redis/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-redis:1.0.0
+    restart: always
+    ports:
+      - 6379:6379
+    container_name: iot-redis
+    hostname: iot-redis
+    volumes:
+      - redis:/data
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-redis
+
+  rabbitmq:
+    build:
+      context: ./dependencies/rabbitmq/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-rabbitmq:1.0.0
+    restart: always
+    ports:
+      - 5672:5672
+      - 1883:1883
+      - 61613:61613
+      - 15672:15672
+    container_name: iot-rabbitmq
+    hostname: iot-rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-rabbitmq
+
+
+volumes:
+  logs:
+  mysql:
+  mongo_config:
+  mongo_db:
+  redis:
+  rabbitmq:
+
+
+networks:
+  iotnet:
+    driver: 'bridge'

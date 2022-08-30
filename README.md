@@ -30,4 +30,19 @@
 |      |                       |     |
 
 
+```bash
+# Added by DC3
+127.0.0.1       iot.com
+127.0.0.1       iot-mysql
+127.0.0.1       iot-redis
+127.0.0.1       iot-mongo
+127.0.0.1       iot-rabbitmq
+127.0.0.1       iot-nginx
+# dev
+127.0.0.1       iot-center-register
+127.0.0.1       iot-center-auth
+127.0.0.1       iot-center-manager
+127.0.0.1       iot-center-data
+# End DC3
+```
 
