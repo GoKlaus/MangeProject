@@ -11,6 +11,7 @@ spring:
       - monitor
       - redis
       - feign
+      - ${NODE_ENV:dev}
   thymeleaf:
     enabled: true
     mode: HTML
@@ -19,6 +20,11 @@ spring:
     suffix: .html
     servlet:
       content-type: text/html
+  redis:
+    database: 0
+  cache:
+    redis:
+      time-to-live: ${CACHE_REDIS_TIME_TO_LIVE:12H}
   main:
     # bean 定义覆盖
     allow-bean-definition-overriding: true
@@ -101,11 +107,11 @@ spring:
               args:
                 name: default
                 fallbackUri: 'forward:/fallback'
-  redis:
-    database: 0
 
 logging:
   level:
     # 日志等级
     org.industry: debug
-    org.springframework: debug
+    #org.springframework: debug
+  file:
+    name: iot/logs/gateway/${spring.application.name}.log

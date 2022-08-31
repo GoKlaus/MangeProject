@@ -7,11 +7,33 @@ services:
 #      dockerfile: ./Dockerfile
 #    image: klaus/iot:1.0.0
 #
-#  gateway:
-#    build:
-#      context: ../iot-gateway/
-#      dockerfile: ./Dockerfile
-#    image: klaus/iot-gateway:1.0.0
+  gateway:
+    build:
+      context: ../iot-gateway/
+      dockerfile: ./Dockerfile
+    image: klaus/iot-gateway:1.0.0
+    restart: always
+    ports:
+      - 8000:8000
+    environment:
+      - NODE_ENV=dev
+      - EUREKA_HOST=iot-center-register
+      - EUREKA_PORT=8100
+      - SECURITY_USER_NAME=admin
+      - SECURITY_USER_PASSWORD=admin
+    container_name: iot-gateway
+    hostname: iot-gateway
+    volumes:
+      - logs:/iot-gateway/iot/logs
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-file: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-gateway
 
   register:
     build:

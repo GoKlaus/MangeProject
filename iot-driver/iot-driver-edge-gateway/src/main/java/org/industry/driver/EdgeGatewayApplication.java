@@ -1,6 +1,7 @@
-package org.industry;
+package org.industry.driver;
 
-public class Main {
+
+public class EdgeGatewayApplication {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }

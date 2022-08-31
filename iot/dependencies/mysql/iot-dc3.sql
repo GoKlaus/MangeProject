@@ -1,16 +1,3 @@
-/*
- * Copyright (c) 2022. Pnoker. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *     http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -458,10 +445,10 @@ INSERT INTO `dc3_tenant`
 VALUES ('-1', 'default', 1, '平台开发默认租户', '2016-10-01 00:00:00', '2016-10-01 00:00:00', 0);
 
 -- ----------------------------
--- Records of dc3_user
+-- Records of dc3_user password dc3dc3dc3
 -- ----------------------------
 INSERT INTO `dc3_user`
-VALUES ('-1', 'pnoker', '18304071393', 'pnokers@icloud.com', '10e339be1130a90dc1b9ff0332abced6', 1, '平台开发者账号', '2016-10-01 00:00:00', '2016-10-01 00:00:00', 0);
+VALUES ('-1', 'klaus', '18304071393', 'pnokers@icloud.com', '10e339be1130a90dc1b9ff0332abced6', 1, '平台开发者账号', '2016-10-01 00:00:00', '2016-10-01 00:00:00', 0);
 
 -- ----------------------------
 -- Records of dc3_tenant_bind

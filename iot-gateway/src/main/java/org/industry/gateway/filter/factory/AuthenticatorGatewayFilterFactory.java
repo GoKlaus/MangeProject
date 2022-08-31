@@ -60,7 +60,7 @@ public class AuthenticatorGatewayFilterFactory extends AbstractGatewayFilterFact
                 Login login = JsonUtil.parseObject(IotUtil.decode(cookie), Login.class);
                 log.debug("Request cookie: {}", login);
 
-                R<Tenant> tenantR = gatewayFilter.tenantClient.selectByName(login.getName());
+                R<Tenant> tenantR = gatewayFilter.tenantClient.selectByName(login.getTenant());
                 if (!tenantR.isOk() || !tenantR.getData().getEnable()) {
                     throw new ServiceException("Invalid tenant");
                 }

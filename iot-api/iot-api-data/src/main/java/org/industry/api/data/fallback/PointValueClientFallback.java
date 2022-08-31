@@ -21,7 +21,7 @@ public class PointValueClientFallback implements FallbackFactory<PointValueClien
 
     @Override
     public PointValueClient create(Throwable throwable) {
-        String message = throwable.getMessage() == null ? "No available server for client: DC3-CENTER-DATA" : throwable.getMessage();
+        String message = throwable.getMessage() == null ? "No available server for client: IOT-CENTER-DATA" : throwable.getMessage();
         log.error("Fallback:{}", message);
 
         return new PointValueClient() {

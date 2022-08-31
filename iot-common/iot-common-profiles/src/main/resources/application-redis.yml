@@ -1,8 +1,8 @@
 spring:
   redis:
-    host: ${REDIS_HOST:dc3-redis}
+    host: ${REDIS_HOST:iot-redis}
     port: ${REDIS_PORT:6379}
-    password: ${REDIS_PASSWORD:dc3}
+    password: ${REDIS_PASSWORD:admin@123}
     timeout: 15S
     lettuce:
       pool:
@@ -11,4 +11,4 @@ spring:
   # @caching @cacheable的实现类型，type = redis
   cache:
     type: redis
-    cache-names: dc3-cache
+    cache-names: iot-cache
