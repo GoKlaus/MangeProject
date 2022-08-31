@@ -26,8 +26,8 @@ services:
       - EUREKA_DASHBOARD_PATH=/
       - EUREKA_HOST=iot-center-register
       - EUREKA_PORT=8100
-      - SECURITY_USER_NAME=dc3
-      - SECURITY_USER_PASSWORD=dc3
+      - SECURITY_USER_NAME=admin
+      - SECURITY_USER_PASSWORD=admin
     container_name: iot-center-register
     hostname: iot-center-register
     volumes:
@@ -40,7 +40,7 @@ services:
     networks:
       iotnet:
         aliases:
-          - dc3-center-register
+          - iot-center-register
   auth:
     build:
       context: ../iot-center/iot-center-auth/
@@ -54,15 +54,15 @@ services:
       - MYSQL_HOST=iot-mysql
       - MYSQL_PORT=3306
       - MYSQL_USERNAME=root
-      - MYSQL_PASSWORD=dc3
+      - MYSQL_PASSWORD=admin@123
       - REDIS_HOST=iot-redis
       - REDIS_PORT=6379
-      - REDIS_PASSWORD=dc3
+      - REDIS_PASSWORD=admin@123
       - CACHE_REDIS_TIME_TO_LIVE=6H
       - EUREKA_HOST=iot-center-register
       - EUREKA_PORT=8100
-      - SECURITY_USER_NAME=dc3
-      - SECURITY_USER_PASSWORD=dc3
+      - SECURITY_USER_NAME=admin
+      - SECURITY_USER_PASSWORD=admin
     container_name: iot-center-auth
     hostname: iot-center-auth
     volumes:
@@ -75,7 +75,7 @@ services:
     networks:
       iotnet:
         aliases:
-          - dc3-center-auth
+          - iot-center-auth
 
   mysql:
     build:
@@ -86,7 +86,7 @@ services:
     ports:
       - 3306:3306
     environment:
-      - MYSQL_ROOT_PASSWORD=dc3
+      - MYSQL_ROOT_PASSWORD=admin@123
     container_name: iot-mysql
     hostname: iot-mysql
     volumes:

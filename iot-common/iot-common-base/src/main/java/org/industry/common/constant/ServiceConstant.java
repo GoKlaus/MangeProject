@@ -36,7 +36,7 @@ public interface ServiceConstant {
      * 权限服务相关
      */
     interface Auth {
-        String SERVICE_NAME = "DC3-CENTER-AUTH";
+        String SERVICE_NAME = "IOT-CENTER-AUTH";
 
         String USER_URL_PREFIX = "/auth/user";
         String TENANT_URL_PREFIX = "/auth/tenant";
@@ -49,7 +49,7 @@ public interface ServiceConstant {
      * 管理服务相关
      */
     interface Manager {
-        String SERVICE_NAME = "DC3-CENTER-MANAGER";
+        String SERVICE_NAME = "IOT-CENTER-MANAGER";
 
         String DRIVER_URL_PREFIX = "/manager/driver";
         String BATCH_URL_PREFIX = "/manager/batch";
@@ -72,7 +72,7 @@ public interface ServiceConstant {
      * 数据服务相关
      */
     interface Data {
-        String SERVICE_NAME = "DC3-CENTER-DATA";
+        String SERVICE_NAME = "IOT-CENTER-DATA";
 
         String VALUE_URL_PREFIX = "/data/point_value";
     }
@@ -81,7 +81,7 @@ public interface ServiceConstant {
      * 视频服务相关
      */
     interface Rtmp {
-        String SERVICE_NAME = "DC3-TRANSFER-RTMP";
+        String SERVICE_NAME = "IOT-TRANSFER-RTMP";
 
         String URL_PREFIX = "/transfer/rtmp";
     }

@@ -16,7 +16,6 @@ eureka:
   client:
     region: iot
     availability-zones:
-      dc3: defaultZone
       iot: defaultZone
     prefer-same-zone-eureka: true
     registry-fetch-interval-seconds: 5

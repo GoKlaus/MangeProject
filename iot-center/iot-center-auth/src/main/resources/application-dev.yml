@@ -9,7 +9,7 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:iot-mysql}:${MYSQL_PORT:3306}/dc3?allowPublicKeyRetrieval=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
   redis:
     # Customize Redis configuration
-    host: ${REDIS_HOST:127.0.0.1}
+    host: ${REDIS_HOST:iot-redis}
     port: ${REDIS_PORT:6379}
   cache:
     redis:
