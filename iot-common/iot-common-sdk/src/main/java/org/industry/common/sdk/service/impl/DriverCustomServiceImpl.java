@@ -13,6 +13,23 @@ import java.util.Map;
 @Service
 public class DriverCustomServiceImpl implements DriverCustomService {
 
+
+    /**
+     * Initial Driver
+     */
+    @Override
+    public void initial() {
+
+    }
+
+    /**
+     * Schedule Operation
+     */
+    @Override
+    public void schedule() {
+
+    }
+
     /**
      * @param driverInfo
      * @param pointInfo
@@ -24,4 +41,18 @@ public class DriverCustomServiceImpl implements DriverCustomService {
     public String read(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, Point point) {
         return null;
     }
+
+    /**
+     * @param driverInfo
+     * @param pointInfo
+     * @param device
+     * @param attributeInfo
+     * @return
+     */
+    @Override
+    public Boolean write(Map<String, AttributeInfo> driverInfo, Map<String, AttributeInfo> pointInfo, Device device, AttributeInfo attributeInfo) {
+        return null;
+    }
+
+
 }

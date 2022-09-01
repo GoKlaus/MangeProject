@@ -43,11 +43,10 @@ public class DriverCommandApi implements DriverCommandClient {
                 PointValue pointValue = driverCommandService.read(parameter.getDeviceId(), parameter.getPointId());
                 Optional.ofNullable(pointValue).ifPresent(result::add);
             });
-
         } catch (Exception e) {
             return R.fail(e.getMessage());
         }
-        return null;
+        return R.ok(result);
     }
 
     /**
@@ -58,6 +57,14 @@ public class DriverCommandApi implements DriverCommandClient {
      */
     @Override
     public R<Boolean> writePoint(ValidatableList<CmdParameter> cmdParameters) {
-        return null;
+        try {
+            if (cmdParameters.size() > CommonConstant.Driver.DEFAULT_MAX_REQUEST_SIZE) {
+                return R.fail("point request size are limited to " + CommonConstant.Driver.DEFAULT_MAX_REQUEST_SIZE);
+            }
+            cmdParameters.forEach(cmdParameter -> driverCommandService.write(cmdParameter.getDeviceId(), cmdParameter.getPointId(), cmdParameter.getValue()));
+        } catch (Exception e) {
+            return R.fail(e.getMessage());
+        }
+        return R.ok();
     }
 }

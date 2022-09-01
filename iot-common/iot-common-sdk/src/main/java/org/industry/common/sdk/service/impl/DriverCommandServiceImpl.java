@@ -1,6 +1,7 @@
 package org.industry.common.sdk.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.industry.common.bean.driver.AttributeInfo;
 import org.industry.common.bean.point.PointValue;
 import org.industry.common.exception.ServiceException;
 import org.industry.common.model.Device;
@@ -30,17 +31,40 @@ public class DriverCommandServiceImpl implements DriverCommandService {
      */
     @Override
     public PointValue read(String deviceId, String pointId) {
-        Device device =driverContext.getDeviceByDeviceId(deviceId);
+        Device device = driverContext.getDeviceByDeviceId(deviceId);
         try {
-       String rawValue=  driverCustomService.read(driverContext.getDriverInfoByDeviceId(deviceId),
-                 driverContext.getPointInfoByDeviceIdAndPointId(deviceId, pointId),
-                 device,
-                 driverContext.getPointByDeviceIdAndPointId(deviceId,pointId));
+            String rawValue = driverCustomService.read(driverContext.getDriverInfoByDeviceId(deviceId),
+                    driverContext.getPointInfoByDeviceIdAndPointId(deviceId, pointId),
+                    device,
+                    driverContext.getPointByDeviceIdAndPointId(deviceId, pointId));
             PointValue pointValue = new PointValue(deviceId, pointId, rawValue, driverService.convertValue(deviceId, pointId, rawValue));
             driverService.pointValueSender(pointValue);
             return pointValue;
-        } catch(Exception e) {
-        throw new ServiceException(e.getMessage());
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
+    /**
+     * 写操作
+     *
+     * @param deviceId
+     * @param pointId
+     * @param value
+     * @return
+     */
+    @Override
+    public Boolean write(String deviceId, String pointId, String value) {
+        Device device = driverContext.getDeviceByDeviceId(deviceId);
+        try {
+            return driverCustomService.write(
+                    driverContext.getDriverInfoByDeviceId(deviceId),
+                    driverContext.getPointInfoByDeviceIdAndPointId(deviceId, pointId),
+                    device,
+                    new AttributeInfo(value, driverContext.getPointByDeviceIdAndPointId(deviceId, pointId).getType())
+            );
+        } catch (Exception e) {
+            throw new ServiceException(e.getMessage());
         }
     }
 }

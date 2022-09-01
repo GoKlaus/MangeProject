@@ -10,4 +10,13 @@ public interface DriverCommandService {
      * @return
      */
     PointValue read(String deviceId, String pointId);
+
+    /**
+     * 写操作
+     * @param deviceId
+     * @param pointId
+     * @param value
+     * @return
+     */
+    Boolean write(String deviceId, String pointId, String value);
 }
