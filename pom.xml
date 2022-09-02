@@ -59,6 +59,8 @@
         <elasticsearch.version>7.17.4</elasticsearch.version>
         <oshi.version>6.1.6</oshi.version>
         <jna.version>5.11.0</jna.version>
+        <paho.mqttv3.version>1.2.5</paho.mqttv3.version>
+        <guava.version>31.1-jre</guava.version>
     </properties>
     <!--插件仓库-->
     <pluginRepositories>
@@ -166,11 +168,6 @@
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>cn.hutool</groupId>
-                <artifactId>hutool-all</artifactId>
-                <version>${hutool.version}</version>
-            </dependency>
             <!-- Oshi & Jna -->
             <dependency>
                 <groupId>com.github.oshi</groupId>
@@ -236,11 +233,30 @@
                 <artifactId>jakarta.json-api</artifactId>
                 <version>${jakarta.version}</version>
             </dependency>
-
+            <!-- Mqtt 相关 -->
+            <dependency>
+                <groupId>org.eclipse.paho</groupId>
+                <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+                <version>${paho.mqttv3.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
+            </dependency>
+
+            <!-- Guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- Hutool -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!--项目模块-->
