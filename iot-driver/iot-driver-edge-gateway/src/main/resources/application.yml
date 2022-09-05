@@ -1,0 +1,74 @@
+driver:
+  name: EdgeGateway
+  type: gateway
+  project: @project.artifactId@
+  description: @project.artifactId@
+  schedule:
+    status:
+      enable: true
+      corn: '0/10 * * * * ?'
+    read:
+      enable: false
+      corn: '0/30 * * * * ?'
+    custom:
+      enable: true
+      corn: '0/5 * * * * ?'
+  point-attributes:
+    - display-name: 指令Topic
+      name: commandTopic
+      type: string
+      value: commandTopic
+      description: 测点/设备接收下行指令的Mqtt主题
+#      option:
+#        type: input\select\checkox\switch\time...
+#        required: true
+#        data-type: static/url
+#        data: jsonString
+    - displayName: 指令Qos
+      name: commandQos
+      type: int
+      value: 2
+      description: 测点/设备接收下行指令的Mqtt主题的Qos
+#      option:
+#        type: input\select\checkox\switch\time...
+#        required: true
+#        data-type: static/url
+#        data: jsonString
+
+  mqtt:
+    url: ssl://iot-emqx:8883
+    auth-type: X509
+    username: iot
+    password: iot
+    ca-crt: classpath:/certs/ca.crt
+    client-key-pass: dc3-client
+    client-key: classpath:/certs/client.key
+    client-crt: classpath:/certs/client.crt
+    client: ${spring.application.name}
+    receive-topics:
+      - qos: 0
+        name: mqtt/group/device/#
+    default-send-topic:
+      qos: 1
+      name: iot-mqtt-topic
+    keep-alive: 15
+    completion-timeout: 3000
+
+server:
+  port: 8702
+
+spring:
+  profiles:
+    active:
+      - server
+      - register
+      - monitor
+      - rabbitmq
+      - quartz
+      - driver
+      - feign
+      - ${NODE_ENV:dev}
+
+logging:
+  file:
+    name: iot/logs/driver/mqtt/${spring.application.name}.log

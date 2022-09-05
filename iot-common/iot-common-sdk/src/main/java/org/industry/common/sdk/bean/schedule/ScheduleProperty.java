@@ -1,10 +1,11 @@
 package org.industry.common.sdk.bean.schedule;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Setter
 @Getter
+@Data
+@ToString(callSuper = true)
 public class ScheduleProperty {
     private ScheduleConfig read;
     private ScheduleConfig custom;

@@ -1,0 +1,10 @@
+# Development environment, customizable configuration
+eureka:
+  instance:
+    # Custom node registration IP
+    ip-address: ${SERVICE_HOST:127.0.0.1}
+
+# Log config
+logging:
+  level:
+    org.industry: DEBUG

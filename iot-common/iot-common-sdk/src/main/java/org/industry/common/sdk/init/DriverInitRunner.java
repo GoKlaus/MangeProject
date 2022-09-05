@@ -23,6 +23,7 @@ public class DriverInitRunner implements ApplicationRunner {
     private DriverCustomService driverCustomService;
     @Resource
     private DriverScheduleService driverScheduleService;
+
     /**
      * Callback used to run the bean.
      *

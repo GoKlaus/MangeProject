@@ -19,11 +19,18 @@ import java.util.List;
 @ConfigurationProperties(prefix = "driver")
 public class DriverProperty {
 
+    // 租户
     private String tenant;
+    //
     private String name;
+    //
     private String type = CommonConstant.Driver.Type.DRIVER;
+    //
     private String description;
+    //
     private ScheduleProperty schedule;
+    //
     private List<DriverAttribute> driverAttributes;
+    //
     private List<PointAttribute> pointAttributes;
 }

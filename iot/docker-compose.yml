@@ -98,6 +98,39 @@ services:
       iotnet:
         aliases:
           - iot-center-auth
+  edge-gateway:
+    build:
+      context: ../iot-driver/iot-driver-edge-gateway
+      dockerfile: ./Dockerfile
+    image: klaus/iot-driver-edge-gateway:1.0.0
+    restart: always
+    ports:
+#     dockerfile 的端口是8701
+      - 8702:8702
+    environment:
+      - NODE_ENV=dev
+      - RABBITMQ_VIRTUAL_HOST=iot
+      - RABBITMQ_HOST=iot-rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USERNAME=admin
+      - RABBITMQ_PASSWORD=admin
+      - EUREKA_HOST=iot-center-register
+      - EUREKA_PORT=8100
+      - SECURITY_USER_NAME=admin
+      - SECURITY_USER_PASSWORD=admin
+    container_name: iot-driver-edge-gateway
+    hostname: iot-driver-edge-gateway
+    volumes:
+      - logs:/iot-driver/iot-driver-edge-gateway/logs
+    logging:
+      driver: json-file
+      options:
+        max-size: '20m'
+        max-fle: '20'
+    networks:
+      iotnet:
+        aliases:
+          - iot-driver-edge-gateway
 
   mysql:
     build:
